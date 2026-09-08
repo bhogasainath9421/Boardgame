@@ -7,8 +7,8 @@ pipeline {
     }
     
     environment {
-        AWS_ACCOUNT_ID = credentials('aws-account-id')
-        AWS_REGION = 'us-east-1'
+        AWS_ACCOUNT_ID = 125840291232
+        AWS_REGION = 'ap-south-2'
         ECR_REPO_NAME = 'boardgame'
         IMAGE_TAG = "${BUILD_NUMBER}"
     }
@@ -43,7 +43,8 @@ pipeline {
                 script {
                     sh '''
                         # Login to ECR
-                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+                        TOKEN=$(aws ecr get-login-password --region ap-south-2)
+docker login --username AWS -p "$TOKEN" 125840291232.dkr.ecr.ap-south-2.amazonaws.com
                         
                         # Build Docker image
                         docker build -t ${ECR_REPO_NAME}:${IMAGE_TAG} .
