@@ -36,7 +36,7 @@ pipeline {
                     docker login --username AWS -p "\$TOKEN" ${ECR_REGISTRY}
                     
                     # Build Docker image
-                    dockerecrBuild()
+                
                     
                     # Tag for ECR
                     docker tag ${ECR_REPO_NAME}:${IMAGE_TAG} ${ECR_REGISTRY}/${ECR_REPO_NAME}:${IMAGE_TAG}
